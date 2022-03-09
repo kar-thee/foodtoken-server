@@ -21,11 +21,17 @@ const SigninController = async (req, res) => {
         .send({ type: "error", msg: "No User Found....check credentials" });
     }
     //userFound,now send jwt
-    const payload = { name, email, employeeId, userRole: userFound.userRole };
+    const payload = {
+      name: userFound.name,
+      email,
+      employeeId: userFound.employeeId,
+      userRole: userFound.userRole,
+      userId: userFound._id,
+    };
     const tokenGenerated = signToken(payload);
     //send token + data to client
     res.send({
-      msg: `Welcome ${name}`,
+      msg: `Welcome ${userFound.name}`,
       type: "success",
       tokenGenerated,
       userData: payload,

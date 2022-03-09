@@ -33,8 +33,27 @@ const userSchema = mongoose.Schema({
   },
   userRole: {
     type: String,
-    required: true,
     default: "EMPLOYEE",
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  mealTokensMax: {
+    type: Number,
+    default: 0,
+  },
+  beverageTokensMax: {
+    type: Number,
+    default: 0,
+  },
+  mealTokensGenerated: {
+    type: Number,
+    default: 0,
+  },
+  beverageTokensGenerated: {
+    type: Number,
+    default: 0,
   },
 });
 

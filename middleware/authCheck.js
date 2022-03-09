@@ -30,6 +30,7 @@ const authCheck = (req, res, next) => {
       email: payload.email,
       employeeId: payload.employeeId,
       userRole: payload.userRole,
+      userId: payload.userId,
     };
     //success so, proceed
     next();
