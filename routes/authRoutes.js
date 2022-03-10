@@ -7,6 +7,4 @@ router.post("/signup", SignupController);
 
 router.post("/signin", SigninController);
 
-//change Pwd -later
-
 module.exports = router;

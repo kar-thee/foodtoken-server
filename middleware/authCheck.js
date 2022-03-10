@@ -7,7 +7,7 @@ const authCheck = (req, res, next) => {
     if (!authorization) {
       return res
         .status(404)
-        .send({ type: "error", msg: "No authorization available" });
+        .send({ type: "error", msg: "No authorization header available" });
     }
 
     //check token available

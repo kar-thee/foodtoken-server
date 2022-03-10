@@ -3,16 +3,18 @@ const TokensCollection = require("../../models/Tokens");
 const verifyTokenController = async (req, res) => {
   const { tokenFromRequest } = req.params;
   try {
-    if (!tokenString) {
+    if (!tokenFromRequest) {
       return res
         .status(404)
         .send({ type: "error", msg: "No tokenString present in request" });
     }
     //search for that particular token with tokenRedeemed(field)status to be false
     //tokenRedeemed - it is for to identify whether token used already or not
+    //createdAt - also checking if token generated today or old token but not redeemed
     const tokenFound = await TokensCollection.findOne({
       tokenString: tokenFromRequest,
       tokenRedeemed: false,
+      createdAt: new Date().toISOString(),
     });
     if (!tokenFound) {
       return res

@@ -17,7 +17,53 @@ const GenerateTokenController = async (req, res) => {
         .send({ type: "error", msg: "no such user available" });
     }
 
-    //create token here
+    //1 mealToken and 2 beverageToken max count/limit -
+    //cant generate more than the limit -checking it here
+    //tokensCreatedToday ->find tokens generated with current Date in db
+    const tokensCreatedToday = await TokensCollection.find({
+      createdAt: new Date().toISOString(),
+    });
+    //if limit reached (1 meal,2 beverage)tokens -total count 3
+    if (tokensCreatedToday.length === 3) {
+      return res.status(403).send({
+        type: "error",
+        msg: "Sorry Buddy,Tokens generated to the Maximum Limit Today, try again Tomorrow",
+      });
+    }
+
+    //check for meal and beverage type tokens below
+    //mealType token
+    if (tokenType === "meal") {
+      //finding if mealToken present in the tokensCreatedToday
+      const mealTokenFoundToday = tokensCreatedToday.find(
+        (tokenObj) => tokenObj.tokenType === "meal"
+      );
+      //max-limit for mealToken is 1
+      //if mealTokenFoundToday obj found -return you cant generate new meal token
+      if (mealTokenFoundToday) {
+        return res.status(403).send({
+          type: "error",
+          msg: "Sorry Buddy,Meal-Token generated to the Maximum Limit Today, try again Tomorrow",
+        });
+      }
+    }
+    //beverageType token
+    if (tokenType === "beverage") {
+      //filtering  beverage token type objects from tokensCreatedToday
+      const beverageTokensFoundToday = tokensCreatedToday.filter(
+        (tokenObj) => tokenObj.tokenType === "meal"
+      );
+      //max-limit for beverageToken is 2
+      //so, if beverageTokensFoundToday.length > 1 then say you cant generate token
+      if (beverageTokensFoundToday.length > 1) {
+        return res.status(403).send({
+          type: "error",
+          msg: "Sorry Buddy,Beverage-Token generated to the Maximum Limit Today, try again Tomorrow",
+        });
+      }
+    }
+
+    //create token here -finally
     const tokenCreated = await TokensCollection.create({
       user: userId,
       tokenType,
@@ -36,6 +82,7 @@ const GenerateTokenController = async (req, res) => {
     res.send({
       type: "success",
       msg: `Token generated successfully, enjoy your ${tokenType}`,
+      tokenString,
     });
   } catch (err) {
     return res.status(500).send({ type: "error", msg: err.message });

@@ -11,7 +11,7 @@ router.get("/allUsers", GetAllUsersController);
 router.get("/profile/:userId", GetUserProfileController);
 
 //verify a user to generate tokens
-router.put("/authorize-user", AuthorizeUserController);
+router.put("/authorizeUser", AuthorizeUserController);
 
 //get all tokens
 router.get("/allTokens", GetAllTokensController);
