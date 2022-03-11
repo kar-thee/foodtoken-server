@@ -1,7 +1,7 @@
 const TokensCollection = require("../../models/Tokens");
 
 const verifyTokenController = async (req, res) => {
-  const { tokenFromRequest } = req.params;
+  const { tokenFromRequest } = req.body;
   try {
     if (!tokenFromRequest) {
       return res

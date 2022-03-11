@@ -13,7 +13,7 @@ const ChangePwdController = async (req, res) => {
     }
 
     //checking if oldPwd same
-    const isOldPwdMatch = decryptPwd(oldPwd, userFound.password);
+    const isOldPwdMatch = await decryptPwd(oldPwd, userFound.password);
     if (!isOldPwdMatch) {
       return res.status(401).send({ type: "error", msg: "wrong password" });
     }

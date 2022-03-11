@@ -7,7 +7,7 @@ const GenerateTokenController = async (req, res) => {
   const { userId } = req.userObj;
   try {
     //appending to uuid- if meal "M" or beverage "B" to identify token
-    const tokenString = `${tokenType[0].toUpperString()}-${uuid()}`;
+    const tokenString = `${tokenType[0].toUpperCase()}-${uuid()}`;
 
     //verify user exists
     const userFound = await UsersCollection.findById(userId);

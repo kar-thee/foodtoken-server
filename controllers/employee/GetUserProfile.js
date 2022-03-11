@@ -14,8 +14,9 @@ const GetUserProfileController = async (req, res) => {
         .status(404)
         .send({ msg: "no such user present", type: "error" });
     }
-    res.end({ type: "success", msg: "User fetched", userFound });
+    res.send({ type: "success", msg: "User fetched", userFound });
   } catch (err) {
+    console.log(err, "err");
     return res.status(500).send({ type: "error", msg: err.message });
   }
 };
