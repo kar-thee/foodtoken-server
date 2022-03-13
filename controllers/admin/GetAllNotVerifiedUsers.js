@@ -1,14 +1,18 @@
 const UsersCollection = require("../../models/Users");
 
-const GetAllUsersController = async (req, res) => {
+const GetAllNotVerifiedUsers = async (req, res) => {
   try {
     //fetch all users projection- w/o pwd
     const usersFound = await UsersCollection.find(
-      { userRole: "EMPLOYEE" },
+      { userRole: "EMPLOYEE", isVerified: false },
       "-password"
     );
     if (!usersFound || usersFound.length < 1) {
-      return res.status(404).send({ msg: "no users Found", type: "error" });
+      return res.status(404).send({
+        msg: "no Not-Verified users Found",
+        type: "error",
+        usersFound: [],
+      });
     }
     //send all users Array
     res.send({ type: "success", usersFound });
@@ -17,4 +21,4 @@ const GetAllUsersController = async (req, res) => {
   }
 };
 
-module.exports = GetAllUsersController;
+module.exports = GetAllNotVerifiedUsers;

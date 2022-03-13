@@ -21,8 +21,12 @@ const tokenSchema = mongoose.Schema(
       //only 2 types of tokens
       enum: ["meal", "beverage"],
     },
+    createdDate: {
+      type: "String",
+      default: new Date().toISOString().split("T")[0],
+    },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const TokensCollection = mongoose.model(

@@ -21,7 +21,7 @@ const GenerateTokenController = async (req, res) => {
     //cant generate more than the limit -checking it here
     //tokensCreatedToday ->find tokens generated with current Date in db
     const tokensCreatedToday = await TokensCollection.find({
-      createdAt: new Date().toISOString(),
+      createdDate: new Date().toISOString().split("T")[0],
     });
     //if limit reached (1 meal,2 beverage)tokens -total count 3
     if (tokensCreatedToday.length === 3) {
@@ -51,7 +51,7 @@ const GenerateTokenController = async (req, res) => {
     if (tokenType === "beverage") {
       //filtering  beverage token type objects from tokensCreatedToday
       const beverageTokensFoundToday = tokensCreatedToday.filter(
-        (tokenObj) => tokenObj.tokenType === "meal"
+        (tokenObj) => tokenObj.tokenType === "beverage"
       );
       //max-limit for beverageToken is 2
       //so, if beverageTokensFoundToday.length > 1 then say you cant generate token

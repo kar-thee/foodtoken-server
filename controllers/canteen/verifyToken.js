@@ -14,11 +14,11 @@ const verifyTokenController = async (req, res) => {
     const tokenFound = await TokensCollection.findOne({
       tokenString: tokenFromRequest,
       tokenRedeemed: false,
-      createdAt: new Date().toISOString(),
+      createdDate: new Date().toISOString().split("T")[0],
     });
     if (!tokenFound) {
       return res
-        .status(404)
+        .status(400)
         .send({ type: "error", msg: "No such tokenString available with us" });
     }
     //if token found,then change tokenRedeemed as true,

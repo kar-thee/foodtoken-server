@@ -27,6 +27,7 @@ const SigninController = async (req, res) => {
       employeeId: userFound.employeeId,
       userRole: userFound.userRole,
       userId: userFound._id,
+      accountVerified: userFound.isVerified,
     };
     const tokenGenerated = signToken(payload);
     //send token + data to client
@@ -35,7 +36,6 @@ const SigninController = async (req, res) => {
       type: "success",
       tokenGenerated,
       userData: payload,
-      accountVerified: userFound.isVerified,
     });
   } catch (err) {
     res.status(500).send({ msg: err.message, type: "error" });
