@@ -55,6 +55,15 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isTokensRequested: {
+    type: Boolean,
+    default: false,
+  },
+  tokenRequestedMonths: {
+    type: Number,
+    enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    default: undefined,
+  },
 });
 
 const UsersCollection = mongoose.model("UsersCollection", userSchema, "Users");

@@ -15,7 +15,7 @@ const GetAllNotVerifiedUsers = async (req, res) => {
       });
     }
     //send all users Array
-    res.send({ type: "success", usersFound });
+    res.send({ type: "success", msg: "Users listed", usersFound });
   } catch (err) {
     return res.status(500).send({ type: "error", msg: err.message });
   }
