@@ -23,7 +23,7 @@ const tokenSchema = mongoose.Schema(
     },
     createdDate: {
       type: "String",
-      default: new Date().toISOString().split("T")[0],
+      default: new Date(Date.now()).toISOString().split("T")[0],
     },
   },
   { timestamps: true }
