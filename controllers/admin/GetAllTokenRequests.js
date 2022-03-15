@@ -3,9 +3,12 @@ const UsersCollection = require("../../models/Users");
 const GetAllTokenRequests = async (req, res) => {
   try {
     //get all users with isTokenRequested Flag to true from db
-    const usersWithTokenRequest = await UsersCollection.find({
-      isTokensRequested: true,
-    });
+    const usersWithTokenRequest = await UsersCollection.find(
+      {
+        isTokensRequested: true,
+      },
+      "-password"
+    );
 
     res.send({
       type: "success",
